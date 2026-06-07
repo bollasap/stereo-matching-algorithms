@@ -6,11 +6,11 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 - Stereo matching algorithms
 
-  - **Block Matching (BM)**
-  - **Dynamic Programming (DP)**
-  - **Semi-Global Matching (SGM)**
-  - **Semi-Global Block Matching (SGBM)**
-  - **Belief Propagation (BP)**
+  - **Block Matching**
+  - **Dynamic Programming**
+  - **Semi-Global Matching**
+  - **Semi-Global Block Matching**
+  - **Belief Propagation**
 
 - Multiple different versions of the algorithms
 
@@ -20,22 +20,22 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 
 ## Algorithms
 
-| Filename | Description | Implementations |
-| --- | --- | --- |
-| **`stereoBM_SAD`** | Block Matching using Sum of Absolute Differences | [MATLAB](./matlab/stereoBM_SAD.m) / [Python](./python/stereoBM_SAD.py) |
-| **`stereoBM_SAD2`** | Block Matching using Sum of Absolute Differences (different approach) | [MATLAB](./matlab/stereoBM_SAD2.m) / [Python](./python/stereoBM_SAD2.py) |
-| **`stereoBM_Grad`** | Block Matching using Image Gradients | [MATLAB](./matlab/stereoBM_Grad.m) / [Python](./python/stereoBM_Grad.py) |
-| **`stereoBM_NCC`** | Block Matching using Normalized Cross-Correlation | [MATLAB](./matlab/stereoBM_NCC.m) / [Python](./python/stereoBM_NCC.py) |
-| **`stereoBM_Rank`** | Block Matching using Rank Transformation | [MATLAB](./matlab/stereoBM_Rank.m) / [Python](./python/stereoBM_Rank.py) |
-| **`stereoBM_Census`** | Block Matching using Census Transformation and Hamming Distance | [MATLAB](./matlab/stereoBM_Census.m) / [Python](./python/stereoBM_Census.py) |
-| **`stereoBM_ASW`** | Block Matching using Adaptive Window (Adaptive Support Weights) | [MATLAB](./matlab/stereoBM_ASW.m) / [Python](./python/stereoBM_ASW.py) |
-| **`stereoDP_LR`** | Dynamic Programming with Left–Right Axes DSI | [MATLAB](./matlab/stereoDP_LR.m) / [Python](./python/stereoDP_LR.py) |
-| **`stereoDP_LD`** | Dynamic Programming with Left–Disparity Axes DSI | [MATLAB](./matlab/stereoDP_LD.m) / [Python](./python/stereoDP_LD.py) |
-| **`stereoSGM`** | Semi-Global Matching | [MATLAB](./matlab/stereoSGM.m) / [Python](./python/stereoSGM.py) |
-| **`stereoSGBM`** | Semi-Global Block Matching | [MATLAB](./matlab/stereoSGBM.m) / [Python](./python/stereoSGBM.py) |
-| **`stereoBP_Synch`** | Belief Propagation with *Synchronous* Message Update Schedule | [MATLAB](./matlab/stereoBP_Synch.m) / [Python](./python/stereoBP_Synch.py) |
-| **`stereoBP_Synch2`** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | [MATLAB](./matlab/stereoBP_Synch2.m) / [Python](./python/stereoBP_Synch2.py) |
-| **`stereoBP_Accel`** | Belief Propagation with *Accelerated* Message Update Schedule | [MATLAB](./matlab/stereoBP_Accel.m) / [Python](./python/stereoBP_Accel.py) |
+| Name | Description | MATLAB | Python |
+| --- | --- | --- | --- |
+| **Block Matching (SAD)** | Block Matching using Sum of Absolute Differences | **[`stereoBM_SAD.m`](./matlab/stereoBM_SAD.m)** | **[`stereoBM_SAD.py`](./python/stereoBM_SAD.py)** |
+| **Block Matching (SAD)** | Block Matching using Sum of Absolute Differences (different approach) | **[`stereoBM_SAD2.m`](./matlab/stereoBM_SAD2.m)** | **[`stereoBM_SAD2.py`](./python/stereoBM_SAD2.py)** |
+| **Block Matching (Gradient)** | Block Matching using Image Gradients | **[`stereoBM_Grad.m`](./matlab/stereoBM_Grad.m)** | **[`stereoBM_Grad.py`](./python/stereoBM_Grad.py)** |
+| **Block Matching (NCC)** | Block Matching using Normalized Cross-Correlation | **[`stereoBM_NCC.m`](./matlab/stereoBM_NCC.m)** | **[`stereoBM_NCC.py`](./python/stereoBM_NCC.py)** |
+| **Block Matching (Rank)** | Block Matching using Rank Transformation | **[`stereoBM_Rank.m`](./matlab/stereoBM_Rank.m)** | **[`stereoBM_Rank.py`](./python/stereoBM_Rank.py)** |
+| **Block Matching (Census)** | Block Matching using Census Transformation and Hamming Distance | **[`stereoBM_Census.m`](./matlab/stereoBM_Census.m)** | **[`stereoBM_Census.py`](./python/stereoBM_Census.py)** |
+| **Block Matching (Adaptive)** | Block Matching using Adaptive Window (Adaptive Support Weights) | **[`stereoBM_ASW.m`](./matlab/stereoBM_ASW.m)** | **[`stereoBM_ASW.py`](./python/stereoBM_ASW.py)** |
+| **Dynamic Programming (Left-Right)** | Dynamic Programming with Left–Right Axes DSI | **[`stereoDP_LR.m`](./matlab/stereoDP_LR.m)** | **[`stereoDP_LR.py`](./python/stereoDP_LR.py)** |
+| **Dynamic Programming (Left-Disparity)** | Dynamic Programming with Left–Disparity Axes DSI | **[`stereoDP_LD.m`](./matlab/stereoDP_LD.m)** | **[`stereoDP_LD.py`](./python/stereoDP_LD.py)** |
+| **Semi-Global Matching** | Semi-Global Matching with 8-path cost aggregation | **[`stereoSGM.m`](./matlab/stereoSGM.m)** | **[`stereoSGM.py`](./python/stereoSGM.py)** |
+| **Semi-Global Block Matching** | Semi-Global Block Matching with 8-path cost aggregation | **[`stereoSGBM.m`](./matlab/stereoSGBM.m)** | **[`stereoSGBM.py`](./python/stereoSGBM.py)** |
+| **Belief Propagation (Accelerated)** | Belief Propagation with *Accelerated* (or *Directional*) Message Update Schedule | **[`stereoBP_Accel.m`](./matlab/stereoBP_Accel.m)** | **[`stereoBP_Accel.py`](./python/stereoBP_Accel.py)** |
+| **Belief Propagation (Synchronous)** | Belief Propagation with *Synchronous* Message Update Schedule | **[`stereoBP_Synch.m`](./matlab/stereoBP_Synch.m)** | **[`stereoBP_Synch.py`](./python/stereoBP_Synch.py)** |
+| **Belief Propagation (Synchronous)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | **[`stereoBP_Synch2.m`](./matlab/stereoBP_Synch2.m)** | **[`stereoBP_Synch2.py`](./python/stereoBP_Synch2.py)** |
 
 ## Installation
 
@@ -59,10 +59,10 @@ You may optionally modify other parameters as needed. If the input images contai
 
 ## Performances
 
-The following running times were measured on a Windows PC with a CPU AMD A10-7850K and 8GB of RAM.
+The following running times are in seconds and were measured on a Windows PC with a CPU AMD A10-7850K and 8GB of RAM.
 
-| Filename | MATLAB (sec) | Python (sec) | Notes |
-| --- | --- | --- | --- |
+| Filename | Running Time MATLAB | Running Time Python | Notes |
+| --- |:---:|:---:| --- |
 | **`stereoBM_SAD`** | 0.10 | 0.08 | image display disabled |
 | **`stereoBM_SAD2`** | 0.48 | 0.81 | image display disabled |
 | **`stereoBM_Grad`** | 0.17 | 0.19 | image display disabled |
@@ -74,9 +74,9 @@ The following running times were measured on a Windows PC with a CPU AMD A10-785
 | **`stereoDP_LD`** | 0.14 | 0.28 | image display disabled |
 | **`stereoSGM`** | 0.81 | 2.45 | image display disabled |
 | **`stereoSGBM`** | 0.84 | 2.51 | image display disabled |
+| **`stereoBP_Accel`** | 9.11 | 15.18 | image display disabled, 20 iterations |
 | **`stereoBP_Synch`** | 11.16 | 21.00 | image display disabled, 20 iterations |
 | **`stereoBP_Synch2`** | 4.83 | 17.57 | image display disabled, 20 iterations |
-| **`stereoBP_Accel`** | 9.11 | 15.18 | image display disabled, 20 iterations |
 
 ## Results
 
@@ -124,17 +124,23 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 
 ![Semi-Global Block Matching Disparity Map](results/disparitySGBM.png)
 
-### Belief Propagation (Synchronous)
-
-![Belief Propagation (Synchronous) Disparity Map](results/disparityBP_Synch.png)
-
 ### Belief Propagation (Accelerated)
 
 ![Belief Propagation (Accelerated) Disparity Map](results/disparityBP_Accel.png)
 
+### Belief Propagation (Synchronous)
+
+![Belief Propagation (Synchronous) Disparity Map](results/disparityBP_Synch.png)
+
 ## Links
 
-- Project repository: https://github.com/aposb/stereo-matching-algorithms
+### Project Repository
+
+- [Stereo Matching Algorithms in MATLAB and Python](https://github.com/aposb/stereo-matching-algorithms)
+
+### Related Projects
+
+- [Basic Stereo Algorithms (Evolution)](https://github.com/aposb/stereo-algorithms-evolution)
 
 ## License
 
