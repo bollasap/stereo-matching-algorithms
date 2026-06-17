@@ -1,0 +1,101 @@
+# Stereo Matching using Iterated Conditional Modes
+# Computes a disparity map from a rectified stereo pair using Iterated Conditional Modes
+
+import time
+import numpy as np
+import cv2 as cv
+import matplotlib.pyplot as plt
+from shiftArray import shiftArray
+
+# Set parameters
+dispLevels = 16 #disparity range: 0 to dispLevels-1
+iterations = 60
+lambda_ = 5 #weight of smoothness cost
+trunc = 2 #truncation of smoothness cost
+
+# Define data cost computation
+dataCostComputation = lambda left,right: np.absolute(left-right) #absolute differences
+#dataCostComputation = lambda left,right: (left-right)**2 #square differences
+
+# Define smoothness cost computation
+smoothnessCostComputation = lambda differences: lambda_*np.minimum(np.absolute(differences),trunc)
+
+# Start timer
+timerVal = time.time()
+
+# Load left and right images in grayscale
+leftImg = cv.imread("left.png",cv.IMREAD_GRAYSCALE)
+rightImg = cv.imread("right.png",cv.IMREAD_GRAYSCALE)
+
+# Apply a Gaussian filter
+leftImg = cv.GaussianBlur(leftImg,(5,5),0.6)
+rightImg = cv.GaussianBlur(rightImg,(5,5),0.6)
+
+# Get the size
+(rows,cols) = leftImg.shape
+
+# Convert to int32
+leftImg = leftImg.astype(np.int32)
+rightImg = rightImg.astype(np.int32)
+
+# Compute pixel-based matching cost (data cost)
+dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
+for d in range(dispLevels):
+    #rightImgShifted = shiftArray(rightImg,[0,d])
+    rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
+    dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
+
+# Initialize the disparity map
+dispMap = np.argmin(dataCost,axis=2)
+
+energy = np.zeros(iterations,dtype=np.int32)
+d = np.arange(dispLevels)[np.newaxis,np.newaxis,:].astype(np.int32)
+
+# Start iterations
+for it in range(iterations):
+
+    # Compute local energy
+    localEnergy = dataCost + \
+    smoothnessCostComputation(np.roll(dispMap,-1,0)[:,:,np.newaxis]-d) + \
+    smoothnessCostComputation(np.roll(dispMap,-1,1)[:,:,np.newaxis]-d) + \
+    smoothnessCostComputation(np.roll(dispMap,1,0)[:,:,np.newaxis]-d) + \
+    smoothnessCostComputation(np.roll(dispMap,1,1)[:,:,np.newaxis]-d)
+    
+    # Compute the disparity map
+    dispMap = np.argmin(localEnergy,axis=2)
+    
+    # Compute energy
+    dataEnergy = np.sum(dataCost[np.arange(rows)[:,np.newaxis],np.arange(cols)[np.newaxis,:],dispMap])
+    smoothnessEnergyHorizontal = np.sum(smoothnessCostComputation(np.diff(dispMap,n=1,axis=1)))
+    smoothnessEnergyVertical = np.sum(smoothnessCostComputation(np.diff(dispMap,n=1,axis=0)))
+    energy[it] = dataEnergy+smoothnessEnergyHorizontal+smoothnessEnergyVertical
+
+    # Normalize the disparity map for display
+    scaleFactor = 256/dispLevels
+    dispImg = (dispMap*scaleFactor).astype(np.uint8)
+
+    # Show disparity map
+    plt.cla()
+    plt.imshow(dispImg,cmap="gray")
+    plt.show(block=False)
+    plt.pause(0.01)
+
+    # Show energy and iteration
+    print("iteration: {0}/{1}, energy: {2}".format(it+1,iterations,energy[it]))
+
+# Show convergence graph
+plt.figure()
+plt.plot(np.arange(1,iterations+1),energy,marker="o")
+plt.xlabel("Iterations")
+plt.ylabel("Energy")
+plt.show(block=False)
+plt.pause(0.01)
+
+# Save disparity map
+cv.imwrite("disparityICM.png",dispImg)
+
+# Stop timer and display running time
+elapsedTime = time.time()-timerVal
+print("Running time: {:.2f} seconds".format(elapsedTime))
+
+plt.show()
