@@ -1,6 +1,6 @@
 # Stereo Matching Algorithms in MATLAB and Python
 
-Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includes implementations of Block Matching, Dynamic Programming, Semi-Global Matching, Semi-Global Block Matching and Belief Propagation.
+Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includes implementations of Block Matching, Dynamic Programming, Semi-Global Matching, Semi-Global Block Matching, Belief Propagation and Iterated Conditional Modes.
 
 ## Features
 
@@ -11,6 +11,7 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
   - **Semi-Global Matching**
   - **Semi-Global Block Matching**
   - **Belief Propagation**
+  - **Iterated Conditional Modes**
 
 - Multiple different versions of the algorithms
 
@@ -36,6 +37,8 @@ Optimized (very fast) stereo matching algorithms in MATLAB and Python. It includ
 | **Belief Propagation (Accelerated)** | Belief Propagation with *Accelerated* (or *Directional*) Message Update Schedule | **[`stereoBP_Accel.m`](./matlab/stereoBP_Accel.m)** | **[`stereoBP_Accel.py`](./python/stereoBP_Accel.py)** |
 | **Belief Propagation (Synchronous)** | Belief Propagation with *Synchronous* Message Update Schedule | **[`stereoBP_Synch.m`](./matlab/stereoBP_Synch.m)** | **[`stereoBP_Synch.py`](./python/stereoBP_Synch.py)** |
 | **Belief Propagation (Synchronous)** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | **[`stereoBP_Synch2.m`](./matlab/stereoBP_Synch2.m)** | **[`stereoBP_Synch2.py`](./python/stereoBP_Synch2.py)** |
+| **Belief Propagation (Bipartite)** | Belief Propagation with *Bipartite* Message Update Schedule | **[`stereoBP_Bipart.m`](./matlab/stereoBP_Bipart.m)** | **[`stereoBP_Bipart.py`](./python/stereoBP_Bipart.py)** |
+| **Iterated Conditional Modes** | Belief Propagation with *Synchronous* Message Update Schedule (different approach) | **[`stereoICM.m`](./matlab/stereoICM.m)** | **[`stereoICM.py`](./python/stereoICM.py)** |
 
 ## Installation
 
@@ -77,6 +80,8 @@ The following running times are in seconds and were measured on a Windows PC wit
 | **`stereoBP_Accel`** | 9.11 | 15.18 | image display disabled, 20 iterations |
 | **`stereoBP_Synch`** | 11.16 | 21.00 | image display disabled, 20 iterations |
 | **`stereoBP_Synch2`** | 4.83 | 17.57 | image display disabled, 20 iterations |
+| **`stereoBP_Bipart`** | 5.90 | 45.79 | image display disabled, 20 iterations |
+| **`stereoICM`** | 1.95 | 23.38 | image display disabled, 20 iterations |
 
 ## Results
 
@@ -131,6 +136,14 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 ### Belief Propagation (Synchronous)
 
 ![Belief Propagation (Synchronous) Disparity Map](results/disparityBP_Synch.png)
+
+### Belief Propagation (Bipartite)
+
+![Belief Propagation (Bipartite) Disparity Map](results/disparityBP_Bipart.png)
+
+### Iterated Conditional Modes
+
+![Iterated Conditional Modes Disparity Map](results/disparityICM.png)
 
 ## Links
 
