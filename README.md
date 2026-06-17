@@ -141,6 +141,7 @@ Below are the disparity maps produced from the **Tsukuba stereo pair**.
 ### Related Projects
 
 - [Basic Stereo Algorithms (Evolution)](https://github.com/aposb/stereo-algorithms-evolution)
+- [Belief Propagation for Stereo Matching (Sum-Product, Max-Product, Min-Sum)](https://github.com/aposb/belief-propagation-for-stereo)
 
 ## License
 
