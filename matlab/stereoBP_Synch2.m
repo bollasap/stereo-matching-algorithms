@@ -101,10 +101,10 @@ for it = 1:iterations
     end
 
     % Send messages
-    msgFromDown(1:end-1,:,:) = msgToUp2(2:end,:,:); %shift up
-    msgFromUp(2:end,:,:) = msgToDown2(1:end-1,:,:); %shift down
-    msgFromLeft(:,2:end,:) = msgToRight2(:,1:end-1,:); %shift right
-    msgFromRight(:,1:end-1,:) = msgToLeft2(:,2:end,:); %shift left
+    msgFromDown = shiftArray(msgToUp2,[-1,0,0]); %shift up
+    msgFromUp = shiftArray(msgToDown2,[1,0,0]); %shift down
+    msgFromLeft = shiftArray(msgToRight2,[0,1,0]); %shift right
+    msgFromRight = shiftArray(msgToLeft2,[0,-1,0]); %shift left
 
     % Compute belief
     %belief = dataCost + msgFromUp + msgFromDown + msgFromRight + msgFromLeft; %standard belief computation

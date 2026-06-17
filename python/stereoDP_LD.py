@@ -61,7 +61,7 @@ for x in range(1,cols):
     T[:,x,:] = np.argmin(cost,axis=2)
 
 # Compute disparity map (backtracking)
-d = np.zeros(rows,dtype=np.int32)
+d = np.argmin(D[:,-1,:],axis=1)
 for x in range(cols-1,-1,-1):
     dispMap[:,x] = d
     d = T[np.arange(rows),x,d]

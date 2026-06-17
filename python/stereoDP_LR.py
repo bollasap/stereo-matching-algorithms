@@ -87,7 +87,7 @@ for y in range(rows):
 
     # Compute disparity map (backtracking)
     i = cols
-    j = cols
+    j = np.argmin(D[:,i])
     while i > 0:
         if T[j,i] == 1:
             dispMap[y,i-1] = i-j

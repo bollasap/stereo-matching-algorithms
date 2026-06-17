@@ -106,10 +106,10 @@ for it in range(iterations):
         msgToLeft2[:,:,i] = np.amin(costs,axis=2)-minMsgToLeft
 
     # Send messages
-    msgFromDown[0:rows-1,:,:] = msgToUp2[1:rows,:,:] #shift up
-    msgFromUp[1:rows,:,:] = msgToDown2[0:rows-1,:,:] #shift down
-    msgFromLeft[:,1:cols,:] = msgToRight2[:,0:cols-1,:] #shift right
-    msgFromRight[:,0:cols-1,:] = msgToLeft2[:,1:cols,:] #shift left
+    msgFromDown = shiftArray(msgToUp2,[-1,0,0]) #shift up
+    msgFromUp = shiftArray(msgToDown2,[1,0,0]) #shift down
+    msgFromLeft = shiftArray(msgToRight2,[0,1,0]) #shift right
+    msgFromRight = shiftArray(msgToLeft2,[0,-1,0]) #shift left
 
     # Compute belief
     #belief = dataCost + msgFromUp + msgFromDown + msgFromRight + msgFromLeft #standard belief computation

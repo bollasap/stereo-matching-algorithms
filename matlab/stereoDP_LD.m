@@ -58,7 +58,7 @@ for x = 2:cols
 end
 
 % Compute disparity map (backtracking)
-d = ones(rows,1);
+[~,d] = min(D(:,cols,:),[],3);
 for x = cols:-1:1
     dispMap(:,x) = d-1;
     linInd = sub2ind(size(T),(1:rows).',x*ones(rows,1),d);

@@ -83,7 +83,7 @@ for y = 1:rows
 
     % Compute disparity map (backtracking)
     i = cols+1;
-    j = cols+1;
+    [~,j] = min(D(:,i));
     while i > 1
         if T(j,i) == 1
             dispMap(y,i-1) = i-j;
