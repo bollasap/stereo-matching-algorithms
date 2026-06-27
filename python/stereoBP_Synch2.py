@@ -5,7 +5,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 MAX_INT = 2147483647
 
@@ -41,8 +41,7 @@ rightImg = rightImg.astype(np.int32)
 # Compute pixel-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    #rightImgShifted = shiftArray(rightImg,[0,d])
-    rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0)
     dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
 
 # Initialize messages
@@ -106,10 +105,10 @@ for it in range(iterations):
         msgToLeft2[:,:,i] = np.amin(costs,axis=2)-minMsgToLeft
 
     # Send messages
-    msgFromDown = shiftArray(msgToUp2,[-1,0,0]) #shift up
-    msgFromUp = shiftArray(msgToDown2,[1,0,0]) #shift down
-    msgFromLeft = shiftArray(msgToRight2,[0,1,0]) #shift right
-    msgFromRight = shiftArray(msgToLeft2,[0,-1,0]) #shift left
+    msgFromDown = shiftUp(msgToUp2,1,0)
+    msgFromUp = shiftDown(msgToDown2,1,0)
+    msgFromLeft = shiftRight(msgToRight2,1,0)
+    msgFromRight = shiftLeft(msgToLeft2,1,0)
 
     # Compute belief
     #belief = dataCost + msgFromUp + msgFromDown + msgFromRight + msgFromLeft #standard belief computation

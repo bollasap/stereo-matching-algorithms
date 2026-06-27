@@ -5,7 +5,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 MAX_INT = 2147483647
 

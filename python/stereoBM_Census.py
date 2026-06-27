@@ -6,7 +6,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 # Set parameters
 dispLevels = 16 #disparity range: 0 to dispLevels-1
@@ -37,8 +37,8 @@ e = math.floor(windowSize/2)+1
 i = 0
 for dy in range(b,e):
     for dx in range(b,e):
-        leftBlocks[:,:,i] = shiftArray(leftImg,[dy,dx])
-        rightBlocks[:,:,i] = shiftArray(rightImg,[dy,dx])
+        leftBlocks[:,:,i] = shiftYX(leftImg,dy,dx,0)
+        rightBlocks[:,:,i] = shiftYX(rightImg,dy,dx,0)
         i = i+1 
 
 # Census transformation
@@ -48,8 +48,7 @@ rightCensus = rightBlocks>=rightImg[:,:,np.newaxis]
 # Compute window-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    #rightCensusShifted = shiftArray(rightCensus,[0,d,0])
-    rightCensusShifted = np.roll(rightCensus,d,1) #less accurate, better performances
+    rightCensusShifted = shiftRight(rightCensus,d,0)
     dataCost[:,:,d] = dataCostComputation(leftCensus,rightCensusShifted)
 
 # Compute the disparity map

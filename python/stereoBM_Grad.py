@@ -5,7 +5,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 # Set parameters
 dispLevels = 16 #disparity range: 0 to dispLevels-1
@@ -39,8 +39,7 @@ rightGrad[:,:,1] = cv.Sobel(rightImg,cv.CV_64F,0,1,ksize=3)
 # Compute pixel-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.float64)
 for d in range(dispLevels):
-    #rightGradShifted = shiftArray(rightGrad,[0,d,0])
-    rightGradShifted = np.roll(rightGrad,d,1) #less accurate, better performances
+    rightGradShifted = shiftRight(rightGrad,d,0)
     dataCost[:,:,d] = dataCostComputation(leftGrad,rightGradShifted)
 
 # Aggregate the matching cost

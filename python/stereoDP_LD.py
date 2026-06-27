@@ -5,7 +5,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 # Set parameters
 dispLevels = 16 #disparity range: 0 to dispLevels-1
@@ -40,8 +40,7 @@ rightImg = rightImg.astype(np.int32)
 # Compute pixel-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    #rightImgShifted = shiftArray(rightImg,[0,d])
-    rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0)
     dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
 
 # Compute smoothness cost

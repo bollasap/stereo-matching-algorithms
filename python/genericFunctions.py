@@ -1,23 +1,50 @@
 import numpy as np
 
-def shiftArray(inputArray,shift):
-    """shiftArray Shift an array with zero padding (like np.roll but no wrap).
-    Parameters:
-        inputArray: Input array (any dimension).
-        shift: vector specifying shift for each dimension (Positive -> shift forward, Negative -> shift backward).
-    Returns:
-        Shifted array with zeros.
-    Example:
-        A = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12],[13,14,15,16]])
-        B = shiftArray(A,[-2,1]) # shifts first dimension values up by 2 and second dimension right by 1"""
+def shiftDown(A,n,fillValue):
+    """shiftDown Shift an array DOWN with specific padding."""
+    B = np.roll(A,n,0)
+    B[:n] = fillValue
+    return B
 
-    sz = inputArray.shape
-    nd = inputArray.ndim
-    outputArray = np.zeros_like(inputArray)
-    src = []
-    dst = []
-    for i in range(0,nd):
-        src.append(slice(max(0,0-shift[i]),min(sz[i],sz[i]-shift[i])))
-        dst.append(slice(max(0,0+shift[i]),min(sz[i],sz[i]+shift[i])))
-    outputArray[tuple(dst)] = inputArray[tuple(src)]
-    return outputArray
+def shiftUp(A,n,fillValue):
+    """shiftUp Shift an array UP with specific padding."""
+    B = np.roll(A,-n,0)
+    B[-n:] = fillValue
+    return B
+
+def shiftRight(A,n,fillValue):
+    """shiftRight Shift an array RIGHT with specific padding."""
+    B = np.roll(A,n,1)
+    B[:,:n] = fillValue
+    return B
+
+def shiftLeft(A,n,fillValue):
+    """shiftLeft Shift an array LEFT with specific padding."""
+    B = np.roll(A,-n,1)
+    B[:,-n:] = fillValue
+    return B
+
+def shiftForward(A,n,fillValue):
+    """shiftForward Shift an array FORWARD with specific padding."""
+    B = np.roll(A,n,2)
+    B[:,:,:n] = fillValue
+    return B
+
+def shiftBackward(A,n,fillValue):
+    """shiftBackward Shift an array BACKWARD with specific padding."""
+    B = np.roll(A,-n,2)
+    B[:,:,-n:] = fillValue
+    return B
+
+def shiftYX(A,y,x,fillValue):
+    """shiftYX Shift an array by dimensions Y and X with specific padding."""
+    B = np.roll(A,(y,x),(0,1))
+    if (y > 0):
+        B[:y] = fillValue
+    elif (y < 0):
+        B[y:] = fillValue
+    if (x > 0):
+        B[:,:x] = fillValue
+    elif (x < 0):
+        B[:,x:] = fillValue
+    return B

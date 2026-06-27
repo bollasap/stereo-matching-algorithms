@@ -5,7 +5,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 # Set parameters
 dispLevels = 16 #disparity range: 0 to dispLevels-1
@@ -41,8 +41,7 @@ rightImg = rightImg.astype(np.int32)
 # Compute pixel-based matching cost (data cost)
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.int32)
 for d in range(dispLevels):
-    #rightImgShifted = shiftArray(rightImg,[0,d])
-    rightImgShifted = np.roll(rightImg,d,1) #less accurate, better performances
+    rightImgShifted = shiftRight(rightImg,d,0)
     dataCost[:,:,d] = dataCostComputation(leftImg,rightImgShifted)
 
 # Compute smoothness cost
@@ -82,10 +81,10 @@ for it in range(iterations):
     msgToLeft = msgToLeft-np.amin(msgToLeft,axis=2)[:,:,np.newaxis] #normalize
     
     # Send messages
-    msgFromDown = shiftArray(msgToUp,[-1,0,0]) #shift up
-    msgFromUp = shiftArray(msgToDown,[1,0,0]) #shift down
-    msgFromLeft = shiftArray(msgToRight,[0,1,0]) #shift right
-    msgFromRight = shiftArray(msgToLeft,[0,-1,0]) #shift left
+    msgFromDown = shiftUp(msgToUp,1,0)
+    msgFromUp = shiftDown(msgToDown,1,0)
+    msgFromLeft = shiftRight(msgToRight,1,0)
+    msgFromRight = shiftLeft(msgToLeft,1,0)
 
     # Compute belief
     #belief = dataCost + msgFromUp + msgFromDown + msgFromRight + msgFromLeft #standard belief computation

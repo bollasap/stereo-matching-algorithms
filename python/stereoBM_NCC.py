@@ -6,7 +6,7 @@ import time
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
-from shiftArray import shiftArray
+from genericFunctions import *
 
 np.seterr(divide='ignore',invalid='ignore')
 
@@ -39,8 +39,8 @@ e = math.floor(windowSize/2)+1
 i = 0
 for dy in range(b,e):
     for dx in range(b,e):
-        leftBlocks[:,:,i] = shiftArray(leftImg,[dy,dx])
-        rightBlocks[:,:,i] = shiftArray(rightImg,[dy,dx])
+        leftBlocks[:,:,i] = shiftYX(leftImg,dy,dx,0)
+        rightBlocks[:,:,i] = shiftYX(rightImg,dy,dx,0)
         i = i+1 
 
 # Compute window-based matching cost (data cost)
@@ -48,8 +48,7 @@ leftNormalized = leftBlocks-np.mean(leftBlocks,axis=2)[:,:,np.newaxis]
 rightNormalized = rightBlocks-np.mean(rightBlocks,axis=2)[:,:,np.newaxis]
 dataCost = np.zeros((rows,cols,dispLevels),dtype=np.float64)
 for d in range(dispLevels):
-    #rightNormalizedShifted = shiftArray(rightNormalized,[0,d,0])
-    rightNormalizedShifted = np.roll(rightNormalized,d,1) #less accurate, better performances
+    rightNormalizedShifted = shiftRight(rightNormalized,d,0)
     dataCost[:,:,d] = dataCostComputation(leftNormalized,rightNormalizedShifted)
 
 # Compute the disparity map
